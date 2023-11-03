@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Joseph Hertel">
+    <meta name="Senior project" content="This is the home page of the website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The daily riddle</title>
+<script defer src="bundle.js"></script></head>
+<body >
+
+    <header>
+            <h1>The Daily Riddle</h1> 
+            <div id="dropdownbtnDiv">
+            <button class="dropdownbtn">More</button>
+            </div>
+    </header>
+
+    <div class="dropdown">
+        <br>
+        <div id="TheDropdown" class="dropdownContent">
+            <button id="openSignup-loginPopup" type="button">Login/Sign up</button>
+            <br>
+            <button id="btnLogout" type="button">Log out</button>
+            <br>
+            <button id="openDailyTop10Popup">Daily top 10 scores</button>
+            <br>
+            <button>Monthly top 20 scores</button>
+        </div>
+    </div>
+
+    <div class="signup-loginPopup" id="signup-loginPopup">
+        <div class="signup-loginPopup-inner">
+
+            <form>
+            <input id="txtEmail" type="email" >
+            <label>Email</label>
+            <br>
+            <br>
+            <input id="txtPassword" type="password" >
+            <label >Password</label>
+            <br>
+            <br>
+            <input id="txtUsername" type="text">
+            <label>Username (not needed if logging in)</label>
+            <div>
+            <br>
+            <button id="btnLogin" type="button">Log in</button>
+            <button id="btnSignup" type="button">Sign up</button>
+            <button id="closeSignup-loginPopup" type="button">Close</button>
+            </div>
+            </form>
+            
+        </div>
+    </div>
+
+    <div class="dailyTop10Popup" id="dailyTop10Popup">
+        <div class="dailyTop10Popup-inner" id="dailyTop10Popup-inner">
+        <div>
+            <span style="font-size: larger;">1</span>
+            <p id="user1"></p>
+            <p id="score1"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">2</span>
+            <p id="user2"></p>
+            <p id="score2"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">3</span>
+            <p id="user3"></p>
+            <p id="score3"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">4</span>
+            <p id="user4"></p>
+            <p id="score4"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">5</span>
+            <p id="user5"></p>
+            <p id="score5"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">6</span>
+            <p id="user6"></p>
+            <p id="score6"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">7</span>
+            <p id="user7"></p>
+            <p id="score7"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">8</span>
+            <p id="user8"></p>
+            <p id="score8"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">9</span>
+            <p id="user9"></p>
+            <p id="score9"></p>
+        </div>
+        <br>
+        <div>
+            <span style="font-size: larger;">10</span>
+            <p id="user10"></p>
+            <p id="score10"></p>
+        </div>
+        <br>
+            
+
+        <button id="closeDailyTop10Popup" type="button">Close</button>
+            
+        </div>
+    </div>
+
+
+
+    <div id="startDiv">
+    <button id="btnStart">Start</button>
+    </div>
+
+    <div id="riddleDiv">
+        <p id="riddle"></p>
+        <input id="txtAnswer" type="text" style="width: 20%;">
+
+        <div id="btnAnswerDiv">
+        <p id="answerLen"></p>
+        <button id="btnAnswer" style="font-size: large;">Submit answer</button>
+        </div>
+
+        <div id="feedbackForAnswerDiv">
+            <p id="feedbackForAnswer" style="font-size: large;"></p>
+        </div>
+    </div>
+
+    <!-- <footer id="footer">Image by <a id="attribute" href="https://www.freepik.com/free-photo/old-newspaper-background-flat-lay_23994237.htm#query=newspaper%20background&position=32&from_view=keyword&track=ais">Freepik</a></footer> -->
+    
+</body>
+</html>
