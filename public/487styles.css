@@ -169,6 +169,57 @@ html{
     font-size: larger;
 }
 
+/* Pop up for top 20 monthly scores */
+.monthlyTop20Popup{
+    background-color: rgba(0,0,0,0.3);
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.monthlyTop20Popup.open {
+    opacity: 1;
+    z-index: 999;
+}
+
+.monthlyTop20Popup-inner {
+    margin-top: 30%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    padding: 15px 25px;
+    text-align: center;
+    width: 500px;
+    clear: both;
+}
+
+.monthlyTop20Popup-inner div {
+    border: solid black;
+    border-radius: 20px;
+}
+
+.monthlyTop20Popup-inner button {
+    padding: 2%;
+    width: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: larger;
+}
+
+
+
 /* styling for the riddle */
 #riddleDiv{
     text-align: center;
@@ -183,6 +234,7 @@ html{
     font-size: xx-large;
     padding: 1%;
     margin-top: 1%;
+    border-radius: 50%;
 }
 
 #answerLen {

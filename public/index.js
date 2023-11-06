@@ -2,7 +2,7 @@ import './487styles.css';
 import { AuthErrorCodes } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, doc, getDoc, getDocs, writeBatch, batch, setDoc, deleteDoc, orderBy, query } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc, getDocs, writeBatch, batch, setDoc, deleteDoc, orderBy, query, updateDoc } from "firebase/firestore";
 // import { javascript } from 'webpack'; <-- WATCH OUT FOR THIS LITTLE SHIT! WILL BRAKE WEBPACK IF USED.
 import { 
     getAuth,
@@ -161,6 +161,7 @@ function userScore(attemptsUsed) {
 
   console.log(totalScore);
   addDailyScore(totalScore)
+  addMonlthyScore(totalScore)
 }
 
 const addDailyScore = async (Dailyscore) => {
@@ -194,6 +195,34 @@ const addDailyScore = async (Dailyscore) => {
 }else{
   console.log("You have already attempted today")
 }
+}
+
+const addMonlthyScore = async (Dailyscore) => {
+  // Get users monthly doc
+  const UserMonthlyScoreCol = doc(db, "MonthlyScores", auth.currentUser.uid);
+  const monthlyScoreDoc = await getDoc(UserMonthlyScoreCol);
+
+  // Get username
+  const UsernamesCol = doc(db, 'Usernames', auth.currentUser.uid);
+  const usernameDoc = await getDoc(UsernamesCol);
+  const theUsername = usernameDoc.data().username;
+
+  // Check if doc exists and if user has submitted today
+  if (monthlyScoreDoc.exists()) {
+    if (monthlyScoreDoc.data().dailySubmission === false){
+    let score = monthlyScoreDoc.data().score;
+    let MonthlyTotalScore = score + Dailyscore;
+    await updateDoc(UserMonthlyScoreCol, {
+      dailySubmission: true,
+      score: MonthlyTotalScore
+    });
+    }
+  }else{
+    let monlthyDoc = {score: Dailyscore, username: theUsername, dailySubmission: true}
+    setDoc(doc(db, "MonthlyScores", auth.currentUser.uid), monlthyDoc)
+  }
+
+
 }
 
 // Other
@@ -290,7 +319,14 @@ monitorAuthState();
 
 // Add hints function. When a hint is used it takes points away from the total score.
 
+
+
+
 // --------------------------------- UI CODE ---------------------------------
+
+
+
+
 
 // Hide riddleDiv
 let y = document.getElementById("riddleDiv");
@@ -347,6 +383,35 @@ const displayDailyScores = async () =>{
 const btnopenDailyTop10Popup = document.getElementById("openDailyTop10Popup")
 btnopenDailyTop10Popup.addEventListener("click", displayDailyScores)
 
+// Display the top 20 monthly scores
+const displayMonthlyScores = async () =>{
+  const monthlyScoresCol = collection(db, "MonthlyScores")
+  const q = query(monthlyScoresCol, orderBy("score", "desc"));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.size === 0){
+    let info = document.getElementById("user1")
+    info.textContent = "No scores have been submitted yet today"
+    
+  } else {
+
+  for (let i = 1; i < querySnapshot.size +1; i++){ 
+    let score = document.getElementById("monthlyScore" + i.toString());
+    let username = document.getElementById("monthlyUser" + i.toString());
+
+    let docscore = querySnapshot.docs[i -1].data().score.toString();
+    let docusername = querySnapshot.docs[i -1].data().username;
+
+    username.textContent = "Username: " + docusername;
+    score.textContent = "Score: " + docscore;
+    
+  }
+ }
+}
+
+const btnopenMonthlyTop20Popup = document.getElementById("openMonthlyTop20Popup")
+btnopenMonthlyTop20Popup.addEventListener("click", displayMonthlyScores)
+
 // Show and hide signin/login popup
 const btnopen = document.getElementById("openSignup-loginPopup");
 const btnclose = document.getElementById("closeSignup-loginPopup");
@@ -373,11 +438,25 @@ btncloseDaily.addEventListener("click", () => {
   dailyTop10Modal.classList.remove("open");
 });
 
+// Show and hide monthly top 20 scores popup
+const btnopenMonthly = document.getElementById("openMonthlyTop20Popup");
+const btncloseMonthly = document.getElementById("closeMonthlyTop20Popup");
+const monthlyTop20Modal = document.getElementById("monthlyTop20Popup");
+
+btnopenMonthly.addEventListener("click", () => {
+  monthlyTop20Modal.classList.add("open");
+});
+
+btncloseMonthly.addEventListener("click", () => {
+  monthlyTop20Modal.classList.remove("open");
+});
+
 
 
 // Make it when the user clicks the login or sign up button it tells them if it was successful or not. <-------
 // Also let the user know if they are signed in or not when they load the page. <-------
 // Let the user know what score they got. <-------
+// Add the number of times the user has completed a riddle for the month when displaying the top 20 monthly scores <-------
 
 // Sort by using a firebase function or just use what you have below (this is for displaying the top 10 scores) -----------
 // const dailyScoresCol = collection(db, "DailyScores")
