@@ -89,7 +89,7 @@ async function getRiddle(db) {
 
   const lenOfAnswer = answer.length; // Show the user how many letters long the answer is.
   const answerLen = document.querySelector('#answerLen');
-  answerLen.textContent = "The answer is " + lenOfAnswer + " letters long";
+  answerLen.textContent = "The answer is " + lenOfAnswer + " letters long (one word)";
   const dailyRiddle = document.querySelector('#riddle');
   dailyRiddle.textContent = riddle;
 }
@@ -97,7 +97,6 @@ getRiddle(db); // Call getRiddle function
 
 const btnstart = document.querySelector('#btnStart');
 btnstart.addEventListener("click", startRiddle);
-
 
 let counter = 3;
 let attemptsUsed = 0;
@@ -489,7 +488,7 @@ const displayMonthlyScores = async () =>{
 
     username.textContent = "Username: " + docUsername;
     score.textContent = "Score: " + docScore;
-    trys.textContent = "Number of completions: " + docTrys;
+    trys.textContent = "Number of completions for this month: " + docTrys;
 
   }
  }
@@ -550,7 +549,7 @@ btnCloseChangeRiddle.addEventListener("click", () => {
   changeRiddleModal.classList.remove("open");
 });
 
-let btndropdown = document.querySelector('.dropdownbtn')
+let btndropdown = document.querySelector('.btnSidenavOpen')
 btndropdown.addEventListener("click", openNav)
 
 let clostbtn = document.querySelector('.closebtn')
@@ -564,14 +563,12 @@ function closeNav() {
   document.getElementById("sidenavDiv").style.width = "0";
 }
 
-// Make it when the user clicks the login or sign up button it tells them if it was successful or not. <-------
-// Also let the user know if they are signed in or not when they load the page. <-------
-// Let the user know what score they got. <-------
-// Add the number of times the user has completed a riddle for the month when displaying the top 20 monthly scores <-------
-// Add hints function. When a hint is used it takes points away from the total score. <-------
+// Also let the user know if they are signed in or not when they load the page. DONE
+// Add the number of times the user has completed a riddle for the month when displaying the top 20 monthly scores. DONE
 // Change addDailyScore function to check if user has already submitted for the day (only checks if user is already on the leaderboard). DONE.
 
-// Sort by using a firebase function or just use what you have below (this is for displaying the top 10 scores) -----------
-// const dailyScoresCol = collection(db, "DailyScores")
-//   const q = query(dailyScoresCol, orderBy("score", "desc"));
-//   const querySnapshot = await getDocs(q);
+// Move leaderboards to a diffrent HTML page. <-------
+// Make it when the user clicks the login or sign up button it tells them if it was successful or not. <-------
+// Let the user know what score they got. <-------
+// Add hints function. When a hint is used it takes points away from the total score. <-------
+// Make a profile page

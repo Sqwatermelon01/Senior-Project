@@ -44,7 +44,7 @@ h1 {
 }
 
 /* Styling for the More button */
-.dropdownbtn {
+.btnSidenavOpen {
   background-color: black;
   color: white;
   padding: 15px 32px;
@@ -59,11 +59,11 @@ h1 {
   font-family: font1;
 }
 
-.dropdownbtn:hover {
+.btnSidenavOpen:hover {
     background-color: #7c7d7e;
 }
    
-.dropdownbtn:active {
+.btnSidenavOpen:active {
     box-shadow: 0 0 2px darkslategray;
     transform: translateY(2px);
 }
@@ -108,19 +108,32 @@ h1 {
     color: red;
   }
 
-.dropdownContent button {
-    color: black;
-    font-size: large;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    width: 100%;
-  }
-
-.dropdownContent a:hover {background-color: #ddd;}
-
 .show {display:block;}
+
+#startDiv {
+    text-align: center;
+    margin-left: 16%;
+    margin-right: 16%;
+}
+
+#startDiv button {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 35px;
+    height: 130px;
+    width: 130px;
+    /* padding: 1%; */
+    margin-top: 4%;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: font1;
+}
+
+#btnStart:hover {
+    background-color: #7c7d7e;
+}
 
 /* Popup for signing in or logging in */
 .signup-loginPopup{
@@ -316,15 +329,18 @@ h1 {
     text-align: center;
     font-size: xx-large;
     padding-top: 2%;
-    padding-bottom: 5%;
+    /* padding-bottom: 5%; */
     margin-left: 16%;
     margin-right: 16%;
 }
 
+.fadeInAnimated {
+    opacity: 0;
+    animation: fade-in 4s forwards; 
+  }
+
 #riddle {
     font-family: font1;
-    opacity: 0;
-    animation: fade-in 4s forwards;
 }
 
 #txtAnswer {
@@ -332,46 +348,52 @@ h1 {
     font-size: 150%;
     width: 30%;
     min-height: 40px;
+    animation-delay: 0.7s;
 }
 
 #answerLen {
-    
     font-size: 80%;
+    font-family: font1;
+    animation-delay: 0.7s;
+}
+
+#btnAnswer {
+    font-family: font1;
+    font-size: 80%;
+    color: white;
+    background-color: black;
+    padding: 10px;
+    animation-delay: 1.5s;
 }
 
 @keyframes fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+    from {opacity: 0}
+  to {opacity: 1}
   }
 
-
-#startDiv {
-    text-align: center;
-    margin-left: 16%;
-    margin-right: 16%;
-}
-
-#startDiv button {
-    text-align: center;
-    background-color: black;
-    color: white;
-    font-size: 35px;
-    height: 130px;
-    width: 130px;
-    /* padding: 1%; */
-    margin-top: 1%;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: font1;
-}
-
-#btnStart:hover {
+#btnAnswer:hover{
     background-color: #7c7d7e;
+}
+.btnAnswer:active {
+    box-shadow: 0 0 2px darkslategray;
+    transform: translateY(2px);
+}
+
+#feedbackForAnswer {
+    font-size: 70%;
+}
+
+.instructionsText {
+    position: fixed;
+    bottom: 0;
+    padding-top: 5%;
+    padding-right: 15%;
+    padding-bottom: 2%;
+}
+
+.instructionsText p{
+    font-size: 120%;
+    padding-left: 1%;
 }
 
 /* Delete position for smaller screens */

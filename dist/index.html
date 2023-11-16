@@ -5,20 +5,19 @@
     <meta name="author" content="Joseph Hertel">
     <meta name="Senior project" content="This is the home page of the website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The daily riddle</title>
+    <title>The Daily Riddle</title>
 <script defer src="bundle.js"></script></head>
 <body >
 
     <header>
             <h1 class="topOfpage">The Daily Riddle</h1> 
             <div class="topOfpage">
-            <button class="dropdownbtn">More</button>
+            <button class="btnSidenavOpen">More</button>
             </div>
     </header>
 
     <div class="sidenav" id="sidenavDiv">
-        <!-- <div id="TheDropdown" class="dropdownContent"> -->
-            
+        
             <button class="closebtn">&times;</button>
             <br>
             <br>
@@ -29,7 +28,7 @@
             <button id="openDailyTop10Popup">Daily top 10 scores</button>
             <br>
             <button id="openMonthlyTop20Popup">Monthly top 20 total scores</button>
-        <!-- </div> -->
+    
     </div>
 
     <div class="signup-loginPopup" id="signup-loginPopup">
@@ -305,29 +304,35 @@
     <div id="startDiv">
     <button id="btnStart">Start</button>
     <br>
-    <button id="openChangeRidlePopup" style="border-radius: 0%; display: none;">Update/Change a Riddle</button>
     </div>
     
 
     <div id="riddleDiv" class="riddleDiv">
-        <p id="riddle"></p>
-        <input id="txtAnswer" type="text" placeholder="Answer here">
+        <div>
+        <p id="riddle" class="fadeInAnimated"></p>
+        </div>
+        <input id="txtAnswer" type="text" placeholder="Answer here" class="fadeInAnimated">
 
         <div id="btnAnswerDiv">
-        <p id="answerLen"></p>
-        <button id="btnAnswer" style="font-size: large;">Submit answer</button>
+        <p id="answerLen" class="fadeInAnimated"></p>
+        <button id="btnAnswer" class="fadeInAnimated">Submit answer</button>
         </div>
 
         <div id="feedbackForAnswerDiv">
-            <p id="feedbackForAnswer" style="font-size: large;"></p>
+            <p id="feedbackForAnswer"></p>
         </div>
     </div>
-    <p>Welcome! user</p>
+
+    <div class="instructionsText" id="instructionsText">
+    <p><u>How to play</u>: Click the start button to reveal the daily riddle. The riddle has a single-word answer, and you have three attempts to solve the riddle (do not include 'a', 'an', or 'the' in your answer).</p>
+    <p><u>Scoring</u>: Once the start button is clicked, a timer will start. Your score is determined by how quickly you solve the riddle and the number of attempts you have left. (The score will only be added if you are signed in.)</p>
+    <p><u>The daily leaderboard</u>: The daily leaderboard will reset every day at 8:00AM (CST).</p>
+    <p><u>The monthly leaderboard</u>: The monthly leaderboard will reset on the 1st of every month. Every day you solve a riddle, your score accumulates until it is reset.</p>
+    </div>
+    <button id="openChangeRidlePopup" style="border-radius: 0%; display: none;">Update/Change a Riddle</button>
 
     <footer id="footer">
     <a href="https://www.freepik.com/free-photo/vintage-crumpled-paper-textured-background_15599884.htm#query=newspaper%20background&position=3&from_view=keyword&track=ais">Background image by rawpixel.com</a> on Freepik
-    <br>
-    Image by <a href="https://www.freepik.com/free-psd/realistic-paper-rips-design_41916309.htm#query=torn%20paper&position=24&from_view=keyword&track=ais&uuid=3d426668-005d-4365-9f1e-cefe5b013492">Freepik</a>
     </footer>
     
 </body>
