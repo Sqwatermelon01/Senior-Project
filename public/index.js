@@ -14,7 +14,13 @@ import {
   } from 'firebase/auth';
 
   const firebaseApp = initializeApp({
-    
+    apiKey: "AIzaSyBJcxblZCDq1ovvSchILY69TuAODLXNRlM",
+    authDomain: "the-daily-riddle.firebaseapp.com",
+    projectId: "the-daily-riddle",
+    storageBucket: "the-daily-riddle.appspot.com",
+    messagingSenderId: "96418369554",
+    appId: "1:96418369554:web:a175dc7608624db91f48cb",
+    measurementId: "G-F4R08QE4VP"
   });
 
 
@@ -98,28 +104,34 @@ const checkAnswer = async () => {
   const userAnswer = txtAnswer.value;
   const riddleCol = doc(db, 'Riddles', getCurrentDate().toString());
   const riddleDoc = await getDoc(riddleCol);
-  const i = riddleDoc.data().answer;
+  const riddleAnswer = riddleDoc.data().answer;
   let feedback = "";
-  if (userAnswer === "") {
-    feedback = "Please enter an answer.";
-  }
+  console.log(riddleAnswer.length)
+  if (userAnswer.length < riddleAnswer.length || userAnswer.length > riddleAnswer.length) {
+    feedback = "Your answer is not the correct length (this will not count as an attempt).";
+  } else {
 
-  else if (userAnswer.toUpperCase() === i.toUpperCase()) {
+  if (userAnswer.toUpperCase() === riddleAnswer.toUpperCase()) {
     feedback = "You got it!";
     btnAnswer.remove();
     stop(attemptsUsed); // Stops the timer
   } 
 
-  else  if (userAnswer.toUpperCase() != i.toUpperCase()){
+  if (userAnswer.toUpperCase() != riddleAnswer.toUpperCase()){
     counter = counter -1;
     attemptsUsed = attemptsUsed +1;
+    if (counter === 1){
+      feedback = "That's not it, try agian!" + " You have " + counter + " attempt left.";
+    }else{
     feedback = "That's not it, try agian!" + " You have " + counter + " attempts left.";
+    }
     if (counter === 0){
       btnAnswer.remove();
-      feedback = "You are out of attempts. Better luck next time!";
+      feedback = "You are out of attempts. The answer was: " + riddleAnswer;
       clearInterval(interval); // Stops the timer
     }
   }
+}
   feedbackForAnswer.textContent = feedback;
 }
 
@@ -146,6 +158,7 @@ function stop(attemptsUsed) {
   if (auth.currentUser){
   userScore(attemptsUsed);
   }
+  showScore(attemptsUsed)
 }
 // End of timer functions.
 
@@ -161,12 +174,6 @@ function userScore(attemptsUsed) {
   addDailyScore(totalScore)
   addMonlthyScore(totalScore)
 }
-
-// for(let i = 0; i <= querySnapshot.size -1; i++){
-  //   if (querySnapshot.docs[i].data().userUID === auth.currentUser.uid){
-  //     flag = true;
-  //   }
-  // }
 
 const addDailyScore = async (Dailyscore) => {
   // Get DailyScores collection
@@ -419,14 +426,31 @@ function startRiddle() {
   btnstart.remove()
   start()
 }
+// Display the user their score
+function showScore(attempts) {
+  const showScoreModal = document.getElementById("showScorePopup");
+  const showScoreP = document.getElementById("showScoreP");
+
+  showScoreModal.classList.add("open");
+  let score = 100000;
+  totalTime = totalTime + 30 * attempts;
+  let totalScore = score / totalTime;
+  totalScore = Math.round(totalScore);
+
+  showScoreP.textContent = "Your score is: " + totalScore;
+}
+
+const showScoreModal = document.getElementById("showScorePopup");
+const btnCloseShowScore = document.getElementById("closeShowScorePopup");
+btnCloseShowScore.addEventListener("click", () => { 
+  showScoreModal.classList.remove("open");
+});
 
 // Display the top 10 daily scores
 const displayDailyScores = async () =>{
   const dailyScoresCol = collection(db, "DailyScores")
   const q = query(dailyScoresCol, orderBy("score", "desc"));
   const querySnapshot = await getDocs(q);
-  
-  
 
   if (querySnapshot.size === 0){
     let info = document.getElementById("user1")
@@ -444,7 +468,6 @@ const displayDailyScores = async () =>{
     username.textContent = "Username: " + docusername;
     score.textContent = "Score: " + docscore;
 
-    
   }
  }
 }
@@ -561,7 +584,6 @@ function closeNav() {
 // Add the number of times the user has completed a riddle for the month when displaying the top 20 monthly scores. DONE
 // Change addDailyScore function to check if user has already submitted for the day (only checks if user is already on the leaderboard). DONE.
 
-// Move leaderboards to a diffrent HTML page. <-------
 // Make it when the user clicks the login or sign up button it tells them if it was successful or not. <-------
 // Let the user know what score they got. <-------
 // Add hints function. When a hint is used it takes points away from the total score. <-------
