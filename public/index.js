@@ -14,13 +14,7 @@ import {
   } from 'firebase/auth';
 
   const firebaseApp = initializeApp({
-    apiKey: "AIzaSyBJcxblZCDq1ovvSchILY69TuAODLXNRlM",
-    authDomain: "the-daily-riddle.firebaseapp.com",
-    projectId: "the-daily-riddle",
-    storageBucket: "the-daily-riddle.appspot.com",
-    messagingSenderId: "96418369554",
-    appId: "1:96418369554:web:a175dc7608624db91f48cb",
-    measurementId: "G-F4R08QE4VP"
+    
   });
 
 
