@@ -15,7 +15,13 @@ import {
   } from 'firebase/auth';
 
   const firebaseApp = initializeApp({
-
+    apiKey: "AIzaSyBJcxblZCDq1ovvSchILY69TuAODLXNRlM",
+    authDomain: "the-daily-riddle.firebaseapp.com",
+    projectId: "the-daily-riddle",
+    storageBucket: "the-daily-riddle.appspot.com",
+    messagingSenderId: "96418369554",
+    appId: "1:96418369554:web:a175dc7608624db91f48cb",
+    measurementId: "G-F4R08QE4VP"
   });
 
 
@@ -338,6 +344,25 @@ const changePassword = async () => {
   });
 }
 
+// Function to change username
+const changeUsername = async () => {
+  const UsernamesCol = doc(db, 'Usernames', auth.currentUser.uid);
+
+  const newUsernameInput = document.getElementById("newUsername");
+  const newUsername = newUsernameInput.value;
+  console.log(newUsername)
+  if (newUsername != ""){
+  await updateDoc(UsernamesCol,{
+    username: newUsername
+  });
+  alert("You have successfully changed your username")
+  window.location.reload()
+  }else {
+    alert("Username cannot be nothing")
+  }
+}
+
+// Function to delete user account
 const deleteAccount = async () => {
   deleteUser(auth.currentUser).then(() => {
     alert("Your account has been successfully deleted")
@@ -346,6 +371,9 @@ const deleteAccount = async () => {
     alert(error)
   });
 }
+
+const btnNewusername = document.getElementById("btnNewusername");
+btnNewusername.addEventListener('click', changeUsername)
 
 const btnDeleteAcc = document.getElementById("deleteAccountbtn");
 btnDeleteAcc.addEventListener('click', deleteAccount);
