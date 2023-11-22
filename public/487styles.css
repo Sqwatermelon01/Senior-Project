@@ -13,6 +13,10 @@ html {
     
     background-size: cover;
   }
+  body {
+    height: 100%;
+    min-height: 100%;
+  }
 
  header { /*Fix the border not being the screen width */
     font-size: 300%;
@@ -107,10 +111,16 @@ h1 {
 
 .show {display:block;}
 
+/* Styling for the start div */
 #startDiv {
     text-align: center;
     margin-left: 16%;
     margin-right: 16%;
+}
+
+#startDiv p {
+    font-size: 24px;
+    font-family: font1;
 }
 
 #startDiv button {
@@ -443,6 +453,11 @@ h1 {
     font-size: larger;
 }
 
+.changeRiddlePopup-inner input{
+    min-height: 30px;
+    font-size: 15px;
+}
+
 /* styling for the riddle */
 #riddleDiv{
     text-align: center;
@@ -508,7 +523,7 @@ h1 {
     bottom: 0;
     padding-top: 5%;
     padding-right: 15%;
-    padding-bottom: 2%;
+    padding-bottom: 13%;
 }
 
 .instructionsText p{
@@ -519,11 +534,11 @@ h1 {
 /* Delete position for smaller screens */
 footer{
     border-top: solid black 5px;
-    width: 100%;
-    margin-left: -9px;
-    position:fixed; 
-    bottom:0;
-    padding: 0%;
+    clear: both;
+    position: relative;
+    height: 50px;
     text-align: center;
+    /* margin-top: -1100px; */
+    
 }
 

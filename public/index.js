@@ -14,7 +14,13 @@ import {
   } from 'firebase/auth';
 
   const firebaseApp = initializeApp({
-    
+    apiKey: "AIzaSyBJcxblZCDq1ovvSchILY69TuAODLXNRlM",
+    authDomain: "the-daily-riddle.firebaseapp.com",
+    projectId: "the-daily-riddle",
+    storageBucket: "the-daily-riddle.appspot.com",
+    messagingSenderId: "96418369554",
+    appId: "1:96418369554:web:a175dc7608624db91f48cb",
+    measurementId: "G-F4R08QE4VP"
   });
 
 
@@ -321,6 +327,9 @@ const loginEmailPassword = async () => {
     const loginPassword = txtPassword.value
   
     await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+    setTimeout(() => {
+      window.location.reload();
+    },1000);
   }
   
   // Create new account using email/password
@@ -331,6 +340,9 @@ const loginEmailPassword = async () => {
     if (username != "" && email != "" && password != ""){
     try {
       await createUserWithEmailAndPassword(auth, email, password)
+      setTimeout(() => {
+        window.location.reload();
+      },1000);
     }
     catch(error) {
       console.log(`There was an error: ${error}`)
@@ -347,7 +359,11 @@ const showUsername = async () =>  {
       const UsernamesCol = doc(db, 'Usernames', auth.currentUser.uid);
       const usernameDoc = await getDoc(UsernamesCol);
       const theUsername = usernameDoc.data().username;
-      alert("You are logged in as: " + theUsername)
+
+      const usernameP = document.getElementById("usernameP");
+      usernameP.textContent = "Hello " + theUsername + "!"
+
+      // alert("You are logged in as: " + theUsername)
 }
 
   // Monitor auth state
@@ -357,6 +373,10 @@ const monitorAuthState = async () => {
       console.log(user)
       showUsername()
       isAdmin();
+      const btnSignup_login = document.getElementById("openSignup-loginPopup");
+      const brake = document.getElementById("brake");
+      brake.remove()
+      btnSignup_login.style.display = "none"
     }
     else {
       console.log('You are not logged in')
@@ -411,11 +431,11 @@ y.style.display = "none";
 
 // Unhide riddleDiv
 function startRiddle() {
-  let x = document.getElementById("riddleDiv");
-  if (x.style.display === "none") {
-    x.style.display = "block";
+  const riddleDiv = document.getElementById("riddleDiv");
+  if (riddleDiv.style.display === "none") {
+    riddleDiv.style.display = "block";
   } else {
-    x.style.display = "none";
+    riddleDiv.style.display = "none";
   }
   btnstart.remove()
   start()
