@@ -410,6 +410,67 @@ h1 {
     background-color: lightgrey;
 }
 
+/* Styling for Profile Popup */
+.ProfilePopup{
+    font-size: 25px;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+}
+
+.ProfilePopup.open {
+    opacity: 1;
+    z-index: 999;
+}
+
+.ProfilePopup-inner {
+    background: url(img/4880206.jpg) no-repeat center center fixed;
+    background-size: 50%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    padding: 15px 25px;
+    text-align: center;
+    width: 500px;
+}
+
+.ProfilePopup-inner button{
+    font-family: font1;
+    font-size: 25px;
+    color: white;
+    background-color: black;
+    padding: 13px;
+    border-radius: 12px;
+}
+
+#closeProfilePopup {
+    margin-top: -10px;
+    margin-left: 87%;
+    padding: 10px;
+    font-size: 25px;
+    text-align: center;
+    color: white;
+}
+
+#closeProfilePopup:hover, #deleteAccountbtn:hover, #changePasswordbtn:hover{
+    background-color: #7c7d7e;
+}
+
+#deleteAccountbtn{
+    color: red;
+}
+
 /* Popup for change riddle */
 .changeRiddlePopup{
     background-color: rgba(0,0,0,0.3);
@@ -426,8 +487,6 @@ h1 {
     
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    overflow-y: scroll;
 }
 
 .changeRiddlePopup.open {

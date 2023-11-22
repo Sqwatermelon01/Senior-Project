@@ -10,11 +10,18 @@ import {
     signOut,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    connectAuthEmulator
+    sendPasswordResetEmail,
+    deleteUser
   } from 'firebase/auth';
 
   const firebaseApp = initializeApp({
-    
+    apiKey: "AIzaSyBJcxblZCDq1ovvSchILY69TuAODLXNRlM",
+    authDomain: "the-daily-riddle.firebaseapp.com",
+    projectId: "the-daily-riddle",
+    storageBucket: "the-daily-riddle.appspot.com",
+    messagingSenderId: "96418369554",
+    appId: "1:96418369554:web:a175dc7608624db91f48cb",
+    measurementId: "G-F4R08QE4VP"
   });
 
 
@@ -296,8 +303,61 @@ const addNewRiddle = async () => {
     answer: inputAns
   });
   alert("You have successfully changed the riddle for: " + month + "-" + day + "-" + year);
-  
 }
+
+// Function for the profile popup
+const userProfile = async () => {
+  // Get username
+  const UsernamesCol = doc(db, 'Usernames', auth.currentUser.uid);
+  const usernameDoc = await getDoc(UsernamesCol);
+  const theUsername = usernameDoc.data().username;  
+
+  // Get monthly score
+  const monthlyScoresCol = doc(db, 'MonthlyScores', auth.currentUser.uid);
+  const monlthyDoc = await getDoc(monthlyScoresCol);
+  let monthlyScore = 0;
+  if (monlthyDoc.exists()){
+  monthlyScore = monlthyDoc.data().score;
+  }
+
+  const userEmailP = document.getElementById("profileEmial");
+  const usernameP = document.getElementById("profileUsername");
+  const monthlyScoreP = document.getElementById("profileMonthlyScore");
+
+  userEmailP.textContent = "Email: " + auth.currentUser.email;
+  usernameP.textContent = "Username: " + theUsername;
+  monthlyScoreP.textContent = "Total score for this month: " + monthlyScore;
+
+}
+
+// Function to change email
+const changePassword = async () => {
+  const email = auth.currentUser.email;
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    alert("Password reset email sent!")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorCode + errorMessage)
+  });
+}
+
+const deleteAccount = async () => {
+  deleteUser(auth.currentUser).then(() => {
+    alert("Your account has been successfully deleted")
+    window.location.reload()
+  }).catch((error) => {
+    alert(error)
+  });
+}
+
+const btnDeleteAcc = document.getElementById("deleteAccountbtn");
+btnDeleteAcc.addEventListener('click', deleteAccount);
+
+const btnChangeEmail = document.getElementById("changePasswordbtn");
+btnChangeEmail.addEventListener('click', changePassword);
 
 const btnsubmitRiddle = document.getElementById("btnsubmitNewRiddle")
 btnsubmitRiddle.addEventListener('click', addNewRiddle)
@@ -319,11 +379,15 @@ const btnSignup = document.querySelector('#btnSignup');
 const loginEmailPassword = async () => {
     const loginEmail = txtEmail.value
     const loginPassword = txtPassword.value
-  
+    try{
     await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     setTimeout(() => {
       window.location.reload();
     },1000);
+  }
+  catch(error){
+    alert(error);
+  }
   }
   
   // Create new account using email/password
@@ -356,8 +420,6 @@ const showUsername = async () =>  {
 
       const usernameP = document.getElementById("usernameP");
       usernameP.textContent = "Hello " + theUsername + "!"
-
-      // alert("You are logged in as: " + theUsername)
 }
 
   // Monitor auth state
@@ -368,9 +430,10 @@ const monitorAuthState = async () => {
       showUsername()
       isAdmin();
       const btnSignup_login = document.getElementById("openSignup-loginPopup");
-      const brake = document.getElementById("brake");
-      brake.remove()
-      btnSignup_login.style.display = "none"
+      const btnProfile = document.getElementById("openProfilePopup");
+    
+      btnSignup_login.style.display = "none";
+      btnProfile.style.display = "";
     }
     else {
       console.log('You are not logged in')
@@ -580,6 +643,23 @@ btndropdown.addEventListener("click", openNav)
 let clostbtn = document.querySelector('.closebtn')
 clostbtn.addEventListener('click', closeNav)
 
+// Open and close profile popup
+const btnOpenProfile = document.getElementById("openProfilePopup")
+const btnCloseProfile = document.getElementById("closeProfilePopup")
+const profileModal = document.getElementById("ProfilePopup")
+
+btnOpenProfile.addEventListener('click', () => {
+  profileModal.classList.add("open");
+});
+
+btnCloseProfile.addEventListener('click', () => {
+  profileModal.classList.remove("open");
+});
+
+const btnOpenProfilePopup = document.getElementById("openProfilePopup");
+btnOpenProfilePopup.addEventListener('click', userProfile);
+
+// Open and close Nav
 function openNav() {
   document.getElementById("sidenavDiv").style.width = "250px";
 }
